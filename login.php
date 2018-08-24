@@ -1,9 +1,8 @@
-<?php session_start();  ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Blood bank Management System</title>
+<title>Untitled Document</title>
 <link href="css/lightbox.css" rel="stylesheet" />
     <link href="StyleSheet.css" rel="stylesheet" type="text/css" />
 
@@ -37,21 +36,23 @@
 </head>
 
 <body>
-<?php include('admin/function.php'); ?>
 
 
  <div class="h_bg">
 <div class="wrap">
 <div class="header">
 		<div class="logo">
-			<h1><a href="index.php"><img src="Images/logo.png" alt=""></a></h1>
+			<h1><a href="Home.aspx"><img src="Images/logo.png" alt=""></a></h1>
 		</div>
 	</div>
 </div>
 </div>
 <div class="nav_bg">
 <div class="wrap">
-		<?php require('header.php');?>
+		<ul class="nav">
+			<li class="active"><a href="index.php">Preview Website</a></li>	
+			
+            </ul>
 	</div>
   
    
@@ -67,12 +68,12 @@
                     <td style="vertical-align:top"><table cellpadding="0" cellspacing="0" height="200px">             
 
 
-<tr><td class="lefttd">E-Mail</td><td><input type="email" name="t1" required="required"/></td></tr>
-<tr><td class="lefttd">Password</td><td><input type="password"name="t2"  required="required" pattern="[a-zA-Z0-9]{2,10}" title="please enter only character or numbers between 2 to 10 for password"  /></td></tr>
+<tr><td class="lefttd">User Name</td><td><input type="text" name="t1" /></td></tr>
+<tr><td class="lefttd">Password</td><td><input type="password"name="t2" /></td></tr>
 
 
 <tr><td>&nbsp;</td><td><input type="submit" value="Log In" name="sbmt" style="border:0px; background:linear-gradient(#900,#D50000); width:100px; height:30px; border-radius:10px 1px 10px 1px; box-shadow:1px 1px 5px black; color:white; font-weight:bold; font-size:14px; text-shadow:1px 1px 6px black; "></td></tr>
- <tr><td style="font-size:14px">Not A DONOR.?</td><td ><a href="registration.php" style="color:#C30">Click here</a> to REGISTER.</td></tr>
+
                         <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
               
 </table>
@@ -89,17 +90,11 @@
 <div class="wrap">
 <div class="footer">
 	<div class="f_nav">
-		<ul>
-			<li class="active"><a href="index.php">Home</a></li>			
-			<li><a href="donar.php">Donor</a></li>
-            <li><a href="login.php">log In</a></li>
-            <li><a href="aboutus.php">About</a></li>
-            <li><a href="contact.php">Contact Us</a></li>
+
 			
-            </ul>
 	</div>
 		<div class="copy">
-			<p class="title">© All Rights Reserved </p>
+			<p class="title">© All Rights Reserved | Design by Mr. Bhatia |</p>
 		</div>
 	<div class="clear"></div>
 </div>
@@ -111,32 +106,27 @@
 
 
 <?php
-
-$_SESSION['donorstatus']="";
-
 if(isset($_POST["sbmt"])) 
 {
 	
 	$cn=makeconnection();			
 
-			$s="select *from donarregistration where email='" . $_POST["t1"] . "' and pwd='" .$_POST["t2"] . "'";
+			$s="insert into contacts(name,email,mobile,subj) values('" . $_POST["t1"] ."','" . $_POST["t2"] . "','" . $_POST["t3"] . "','" . $_POST["t4"]   ."')";
+			
 			
 	$q=mysqli_query($cn,$s);
-	$r=mysqli_num_rows($q);
 	mysqli_close($cn);
-	if($r>0)
+	if($q>0)
 	{
-		$_SESSION["email"]=$_POST["t1"];
-       $_SESSION['donorstatus']="yes";
-//header("location:donor/index.php");
-echo "<script>location.replace('donor/index.php');</script>";
+	echo "<script>alert('Record Save');</script>";
 	}
 	else
-	{
-		echo "<script>alert('Invalid User Name Or Password');</script>";
+	{echo "<script>alert('Saving Record Failed');</script>";
 	}
 		
 		}	
+	
+
 ?> 
 </body>
 </html>
